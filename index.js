@@ -1,6 +1,3 @@
-
-'use strict'
-
 import {
   AsyncStorage
 } from 'react-native'
@@ -12,10 +9,10 @@ import utils from './utils'
 const ROOT_DIR = fs.DocumentDirectoryPath + '/fsas'
 const PLACEHOLDER = '~'
 
-let CREATE_ROOT_DIR = fs.mkdir(ROOT_DIR)
+let CREATE_ROOT_DIR = fs.mkdir(ROOT_DIR);
 
 module.exports = createInstance()
-exports.THRESHOLD_SIZE = 1000
+exports.THRESHOLD_SIZE = 65000;
 
 /**
  * get singleton with AsyncStorage API, which uses
@@ -40,8 +37,8 @@ function createInstance () {
     getAllKeys: AsyncStorage.getAllKeys,
   }
 
-  function setItem (key) {
-    return multiSet([key])
+  function setItem (key, value) {
+    return multiSet([[key, value]])
   }
 
   function removeItem (key) {
@@ -98,8 +95,10 @@ function createInstance () {
     pairs = pairs.slice()
     const inFileSystem = []
     for (var i = 0; i < pairs.length; i++) {
-      const pair = pairs[i]
-      if (willPutInFS(pair)) {
+      const pair = pairs[i];
+      const toFs = willPutInFS(pair);
+      console.log('ZAZAZAZAZA:', pair[0], (pair[1]+'').length, toFs);
+      if (toFs) {
         inFileSystem.push(pair.slice())
         pair[1] = PLACEHOLDER
       }

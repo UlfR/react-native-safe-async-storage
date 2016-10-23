@@ -1,5 +1,3 @@
-'use strict'
-
 exports.allSettled = function allSettled (promises) {
   const vals = new Array(promises.length).fill(null)
   return new Promise(resolve => {
