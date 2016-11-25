@@ -121,7 +121,7 @@ function createInstance() {
 	}
 
 	function fsMultiRemove(keys) {
-		return utils.allSettled(pairs.map(([key, val]) => fs.unlink(toFSKey(key), val)))
+		return utils.allSettled(keys.map(key => fs.unlink(toFSKey(key))))
 	}
 
 	function fsMultiSet(pairs) {
